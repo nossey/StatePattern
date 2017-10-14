@@ -38,9 +38,9 @@ namespace StatePattern
 
             lock (Locker)
             {
-                CurrentState?.ExitEvent?.Invoke();
+                CurrentState?.OnExit?.Invoke();
                 CurrentState = targetState;
-                CurrentState?.EnterEvent?.Invoke();
+                CurrentState?.OnEnter?.Invoke();
             }
         }
     }

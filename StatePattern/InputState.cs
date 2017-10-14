@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace StatePattern
 {
-    public class UIState : State
+    public class InputState : State
     {
         public delegate void onInputEvent(string str);
         public onInputEvent InputEvent;
 
-        public UIState(UIContext context) : base(context)
+        public InputState(InputContext context) : base(context)
         {
             if (context == null)
                 throw new ArgumentNullException();

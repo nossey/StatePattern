@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace StatePattern
 {
-    public class UIContext : StateContext
+    public class InputContext : StateContext
     {
         public void onInput(string str)
         {
-            if (CurrentState != null && CurrentState is UIState)
-                (CurrentState as UIState).InputEvent(str);
+            if (CurrentState != null && CurrentState is InputState)
+                (CurrentState as InputState).InputEvent(str);
         }
     }
 }

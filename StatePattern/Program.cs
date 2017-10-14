@@ -11,17 +11,14 @@ namespace StatePattern
     {
         static void Main(string[] args)
         {
-            // var context = new Context<UIState>();
-            // var state0 = new UIState(context);
-
-            var context = new UIContext();
-            var state0 = new UIState(context);
-            var state1 = new UIState(context);
-            state0.EnterEvent = () =>
+            var context = new InputContext();
+            var state0 = new InputState(context);
+            var state1 = new InputState(context);
+            state0.OnEnter = () =>
             {
-            };
                 Console.WriteLine("Hello form state0!");
-            state0.ExitEvent = () =>
+            };
+            state0.OnExit = () =>
             {
                 Console.WriteLine("Bye form state0!");
             };
@@ -30,11 +27,11 @@ namespace StatePattern
                 if (s == "T")
                     state0.Context.transitState(state1);
             };
-            state1.EnterEvent = () =>
+            state1.OnEnter = () =>
             {
                 Console.WriteLine("Hello form state1!");
             };
-            state1.ExitEvent = () =>
+            state1.OnExit = () =>
             {
                 Console.WriteLine("Bye form state1!");
             };
@@ -46,13 +43,13 @@ namespace StatePattern
             context.setCurrentState(state0);
 
             string str = "";
-            UIState LastState = null;
+            InputState LastState = null;
             while (true)
             {
                 str = Console.ReadLine();
                 if (str == "Q")
                 {
-                    LastState = context.CurrentState as UIState;
+                    LastState = context.CurrentState as InputState;
                     break;
                 }
                 context.onInput(str);
