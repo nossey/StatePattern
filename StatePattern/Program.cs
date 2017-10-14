@@ -12,16 +12,15 @@ namespace StatePattern
         static void Main(string[] args)
         {
             // var context = new Context<UIState>();
-            // var state0 = new UIState();
-            //
+            // var state0 = new UIState(context);
 
             var context = new UIContext();
             var state0 = new UIState(context);
             var state1 = new UIState(context);
             state0.EnterEvent = () =>
             {
-                Console.WriteLine("Hello form state0!");
             };
+                Console.WriteLine("Hello form state0!");
             state0.ExitEvent = () =>
             {
                 Console.WriteLine("Bye form state0!");
