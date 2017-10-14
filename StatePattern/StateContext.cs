@@ -9,6 +9,9 @@ namespace StatePattern
         public List<State> StateList = new List<State>();
         public State CurrentState { get; private set; }
 
+        // Allow transit to self state
+        public bool SelfTransit;
+
         object Locker = new object();
 
         public void setCurrentState(State state)
@@ -23,12 +26,12 @@ namespace StatePattern
         {
             if (state == null || StateList.Contains(state))
                 return;
-            StateList.Add(state);
+            StateList.Add(T);
         }
 
         public void transitState(State targetState)
         {
-            if (targetState == null || !StateList.Contains(targetState))
+            if (targetState == null || (StateList.Contains(targetState) && SelfTransit))
             {
                 return;
             }

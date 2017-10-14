@@ -8,7 +8,7 @@ namespace StatePattern
 {
     public abstract class State
     {
-        public abstract StateContext Context
+        public StateContext Context
         {
             get;
             set;

@@ -8,28 +8,13 @@ namespace StatePattern
 {
     public class UIState : State
     {
-        public override StateContext Context
-        {
-            get
-            {
-                return _Context;
-            }
-            set
-            {
-                if (value is UIContext)
-                    _Context = value as UIContext;
-            }
-        }
-        UIContext _Context;
-
         public delegate void onInputEvent(string str);
         public onInputEvent InputEvent;
 
-        public UIState(StateContext context) : base(context)
+        public UIState(UIContext context) : base(context)
         {
-            if (!(context is UIContext) || context == null)
-                throw new ArgumentException();
-            Context = context;
+            if (context == null)
+                throw new ArgumentNullException();
             Context.addState(this);
         }
     }
