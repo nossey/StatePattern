@@ -5,7 +5,7 @@ This project demonstrates a minimum state-pattern.
 State class 
 
 ```csharp
-public abstract class State
+public class State
 {
     public StateContext Context
     {
@@ -30,6 +30,48 @@ public abstract class State
 
 ## StateContext
 StateContext class has a State list and manages current state & state transition.
+```csharp
+public class StateContext
+{
+    public List<State> StateList = new List<State>();
+    public State CurrentState { get; private set; }
+
+    // Allow transit to self state
+    public bool SelfTransit = true;
+
+    object Locker = new object();
+
+    public void setCurrentState(State state)
+    {
+        if (state == null || !StateList.Contains(state))
+            return;
+
+        CurrentState = state;
+    }
+
+    public void addState(State state)
+    {
+        if (state == null || StateList.Contains(state))
+            return;
+        StateList.Add(state);
+    }
+
+    public void transitState(State targetState)
+    {
+        if (targetState == null || (StateList.Contains(targetState) && SelfTransit))
+        {
+            return;
+        }
+
+        lock (Locker)
+        {
+            CurrentState?.OnExit();
+            CurrentState = targetState;
+            CurrentState?.OnEnter();
+        }
+    }
+}
+```
 
 ## Example
 The same examlple is shown in Program.cs.
@@ -66,11 +108,11 @@ public class InputContext : StateContext
 var context = new InputContext();
 var state0 = new InputState(context);
 var state1 = new InputState(context);
-state0.EnterEvent = () =>
+state0.OnEnter += () =>
 {
     Console.WriteLine("Hello form state0!");
 };
-state0.ExitEvent = () =>
+state0.OnExit += () =>
 {
     Console.WriteLine("Bye form state0!");
 };
@@ -79,11 +121,11 @@ state0.InputEvent = (s) =>
     if (s == "T")
         state0.Context.transitState(state1);
 };
-state1.EnterEvent = () =>
+state1.OnEnter += () =>
 {
     Console.WriteLine("Hello form state1!");
 };
-state1.ExitEvent = () =>
+state1.OnExit += () =>
 {
     Console.WriteLine("Bye form state1!");
 };
