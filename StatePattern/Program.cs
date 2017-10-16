@@ -14,11 +14,11 @@ namespace StatePattern
             var context = new InputContext();
             var state0 = new InputState(context);
             var state1 = new InputState(context);
-            state0.OnEnter = () =>
+            state0.OnEnter += () =>
             {
                 Console.WriteLine("Hello form state0!");
             };
-            state0.OnExit = () =>
+            state0.OnExit += () =>
             {
                 Console.WriteLine("Bye form state0!");
             };
@@ -27,11 +27,11 @@ namespace StatePattern
                 if (s == "T")
                     state0.Context.transitState(state1);
             };
-            state1.OnEnter = () =>
+            state1.OnEnter += () =>
             {
                 Console.WriteLine("Hello form state1!");
             };
-            state1.OnExit = () =>
+            state1.OnExit += () =>
             {
                 Console.WriteLine("Bye form state1!");
             };

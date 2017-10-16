@@ -10,7 +10,7 @@ namespace StatePattern
         public State CurrentState { get; private set; }
 
         // Allow transit to self state
-        public bool SelfTransit;
+        public bool SelfTransit = true;
 
         object Locker = new object();
 
@@ -26,7 +26,7 @@ namespace StatePattern
         {
             if (state == null || StateList.Contains(state))
                 return;
-            StateList.Add(T);
+            StateList.Add(state);
         }
 
         public void transitState(State targetState)
@@ -38,9 +38,9 @@ namespace StatePattern
 
             lock (Locker)
             {
-                CurrentState?.OnExit?.Invoke();
+                CurrentState?.OnExit();
                 CurrentState = targetState;
-                CurrentState?.OnEnter?.Invoke();
+                CurrentState?.OnEnter();
             }
         }
     }

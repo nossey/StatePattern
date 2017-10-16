@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StatePattern
 {
-    public abstract class State
+    public class State
     {
         public StateContext Context
         {
