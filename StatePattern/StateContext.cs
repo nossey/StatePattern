@@ -10,11 +10,11 @@ namespace StatePattern
         public State CurrentState { get; private set; }
 
         // Allow transit to self state
-        public bool SelfTransit = true;
+        public bool SelfTransit { get; set; } = true;
 
-        object Locker = new object();
+        object Locker { get; set; } = new object();
 
-        public void setCurrentState(State state)
+        public void SetCurrentState(State state)
         {
             if (state == null || !StateList.Contains(state))
                 return;
@@ -22,16 +22,16 @@ namespace StatePattern
             CurrentState = state;
         }
 
-        public void addState(State state)
+        public void AddState(State state)
         {
             if (state == null || StateList.Contains(state))
                 return;
             StateList.Add(state);
         }
 
-        public void transitState(State targetState)
+        public void TransitState(State targetState)
         {
-            if (targetState == null || (StateList.Contains(targetState) && SelfTransit))
+            if (targetState == null || (!StateList.Contains(targetState)))
             {
                 return;
             }

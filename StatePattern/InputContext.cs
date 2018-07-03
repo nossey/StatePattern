@@ -10,8 +10,8 @@ namespace StatePattern
     {
         public void onInput(string str)
         {
-            if (CurrentState != null && CurrentState is InputState)
-                (CurrentState as InputState).InputEvent(str);
+            var currentState = CurrentState as InputState;
+            currentState?.InputEvent(str);
         }
     }
 }

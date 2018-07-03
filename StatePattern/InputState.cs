@@ -8,14 +8,14 @@ namespace StatePattern
 {
     public class InputState : State
     {
-        public delegate void onInputEvent(string str);
-        public onInputEvent InputEvent;
+        public delegate void OnInputEvent(string str);
+        public OnInputEvent InputEvent;
 
         public InputState(InputContext context) : base(context)
         {
             if (context == null)
                 throw new ArgumentNullException();
-            Context.addState(this);
+            Context.AddState(this);
         }
     }
 }

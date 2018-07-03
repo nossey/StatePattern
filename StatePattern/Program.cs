@@ -25,7 +25,7 @@ namespace StatePattern
             state0.InputEvent = (s) =>
             {
                 if (s == "T")
-                    state0.Context.transitState(state1);
+                    state0.Context.TransitState(state1);
             };
             state1.OnEnter += () =>
             {
@@ -38,9 +38,9 @@ namespace StatePattern
             state1.InputEvent = (s) =>
             {
                 if (s == "T")
-                    state1.Context.transitState(state0);
+                    state1.Context.TransitState(state0);
             };
-            context.setCurrentState(state0);
+            context.SetCurrentState(state0);
 
             string str = "";
             InputState LastState = null;
@@ -55,7 +55,7 @@ namespace StatePattern
                 context.onInput(str);
             }
 
-            context.transitState(LastState);
+            context.TransitState(LastState);
             while (true)
             {
                 str = Console.ReadLine();

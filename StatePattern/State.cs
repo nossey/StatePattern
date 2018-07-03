@@ -14,11 +14,11 @@ namespace StatePattern
             private set;
         }
 
-        public delegate void stateEnterEvent();
-        public stateEnterEvent OnEnter;
+        public delegate void StateEnterEvent();
+        public StateEnterEvent OnEnter { get; set; }
 
-        public delegate void stateExitEvent();
-        public stateEnterEvent OnExit;
+        public delegate void StateExitEvent();
+        public StateExitEvent OnExit { get; set; }
 
         public State(StateContext context)
         {
